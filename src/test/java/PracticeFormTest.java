@@ -5,7 +5,9 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
@@ -14,6 +16,7 @@ public class PracticeFormTest {
         Configuration.browserSize = "2560x1440";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
+        Configuration.holdBrowserOpen = true;
 
     }
     @Test
@@ -29,6 +32,7 @@ public class PracticeFormTest {
         $("[id=userNumber]").setValue("8765432101").pressEnter();
         $("#uploadPicture").uploadFromClasspath("1.jpg");
         $("[id=subjectsInput]").setValue("English").pressEnter();
+        $("[id=subjectsInput]").setValue("History").pressEnter();
         $("[for=gender-radio-1]").click();
         $("[id=currentAddress]").setValue("first place to see");
         $("[for=hobbies-checkbox-3]").click();
@@ -41,15 +45,15 @@ public class PracticeFormTest {
         $(".react-datepicker__day--028:not(.react-datepicker__day--outside-month)").click();
         $("[id=submit]").click();
         //Проверка
-        $x("//td[text()='Student Name']/following::td[text()='troferoller uh?']").shouldBe(visible);
-        $x("//td[text()='Student Email']/following::td[text()='gavgav@dsas.com']").shouldBe(visible);
-        $x("//td[text()='Gender']/following::td[text()='Male']").shouldBe(visible);
-        $x("//td[text()='Mobile']/following::td[text()='8765432101']").shouldBe(visible);
-        $x("//td[text()='Date of Birth']/following::td[text()='28 September,2010']").shouldBe(visible);
-        $x("//td[text()='Subjects']/following::td[text()='English']").shouldBe(visible);
-        $x("//td[text()='Hobbies']/following::td[text()='Music']").shouldBe(visible);
-        $x("//td[text()='Picture']/following::td[text()='1.jpg']").shouldBe(visible);
-        $x("//td[text()='Address']/following::td[text()='first place to see']").shouldBe(visible);
-        $x("//td[text()='State and City']/following::td[text()='NCR Noida']").shouldBe(visible);
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("troferoller uh?"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("gavgav@dsas.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("8765432101"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("8 September,2010"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English, History"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Music"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("1.jpg"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("first place to see"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Noida"));
         }
     }
