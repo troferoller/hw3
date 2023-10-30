@@ -16,8 +16,6 @@ public class PracticeFormTest {
         Configuration.browserSize = "2560x1440";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
-
     }
     @Test
     void fillFormTest() {
